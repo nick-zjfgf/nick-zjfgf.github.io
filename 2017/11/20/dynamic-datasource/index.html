@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,spring," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="知识（学习、传播、共享）" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="1.AOP实现动态jdbc切换12345678910111213package com.lvmama.datasource.config;import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;public class DynamicDataSource extends AbstractRoutingD">
+<meta name="keywords" content="java,spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态数据源实现">
+<meta property="og:url" content="http://yoursite.com/2017/11/20/dynamic-datasource/index.html">
+<meta property="og:site_name" content="知识（学习、传播、共享）">
+<meta property="og:description" content="1.AOP实现动态jdbc切换12345678910111213package com.lvmama.datasource.config;import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;public class DynamicDataSource extends AbstractRoutingD">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-21T13:12:54.033Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态数据源实现">
+<meta name="twitter:description" content="1.AOP实现动态jdbc切换12345678910111213package com.lvmama.datasource.config;import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;public class DynamicDataSource extends AbstractRoutingD">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/20/dynamic-datasource/"/>
+
+
+
+
+
+  <title>动态数据源实现 | 知识（学习、传播、共享）</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">知识（学习、传播、共享）</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/20/dynamic-datasource/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NICK">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知识（学习、传播、共享）">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">动态数据源实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-20T13:22:54+08:00">
+                2017-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-AOP实现动态jdbc切换"><a href="#1-AOP实现动态jdbc切换" class="headerlink" title="1.AOP实现动态jdbc切换"></a>1.AOP实现动态jdbc切换</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package com.lvmama.datasource.config;</span><br><span class="line"></span><br><span class="line">import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class DynamicDataSource extends AbstractRoutingDataSource &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	protected Object determineCurrentLookupKey() &#123;</span><br><span class="line">		return DynamicDataSourceContextHolder.getDataSourceType();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package com.lvmama.datasource.config;</span><br><span class="line"></span><br><span class="line">import org.aspectj.lang.JoinPoint;</span><br><span class="line">import org.aspectj.lang.annotation.After;</span><br><span class="line">import org.aspectj.lang.annotation.Aspect;</span><br><span class="line">import org.aspectj.lang.annotation.Before;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.core.annotation.Order;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">@Aspect</span><br><span class="line">@Order(-1)// 保证该AOP在@Transactional之前执行</span><br><span class="line">@Component</span><br><span class="line">public class DynamicDataSourceAspect &#123;</span><br><span class="line">	private static final Logger logger = LoggerFactory.getLogger(DynamicDataSourceAspect.class);</span><br><span class="line"></span><br><span class="line">    @Before(&quot;@annotation(ds)&quot;)</span><br><span class="line">    public void changeDataSource(JoinPoint point, TargetDataSource ds) throws Throwable &#123;</span><br><span class="line">        String dsId = ds.name();</span><br><span class="line">        if (!DynamicDataSourceContextHolder.containsDataSource(dsId)) &#123;</span><br><span class="line">            logger.error(&quot;数据源[&#123;&#125;]不存在，使用默认数据源 &gt; &#123;&#125;&quot;, ds.name(), point.getSignature());</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            logger.debug(&quot;Use DataSource : &#123;&#125; &gt; &#123;&#125;&quot;, ds.name(), point.getSignature());</span><br><span class="line">            DynamicDataSourceContextHolder.setDataSourceType(ds.name());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @After(&quot;@annotation(ds)&quot;)</span><br><span class="line">    public void restoreDataSource(JoinPoint point, TargetDataSource ds) &#123;</span><br><span class="line">        logger.debug(&quot;Revert DataSource : &#123;&#125; &gt; &#123;&#125;&quot;, ds.name(), point.getSignature());</span><br><span class="line">        DynamicDataSourceContextHolder.clearDataSourceType();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package com.lvmama.datasource.config;</span><br><span class="line"></span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class DynamicDataSourceContextHolder &#123;</span><br><span class="line">	private static final ThreadLocal&lt;String&gt; contextHolder = new ThreadLocal&lt;String&gt;();</span><br><span class="line">    public static List&lt;String&gt; dataSourceIds = new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public static void setDataSourceType(String dataSourceType) &#123;</span><br><span class="line">        contextHolder.set(dataSourceType);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String getDataSourceType() &#123;</span><br><span class="line">        return contextHolder.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void clearDataSourceType() &#123;</span><br><span class="line">        contextHolder.remove();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 判断指定DataSrouce当前是否存在</span><br><span class="line">     *</span><br><span class="line">     * @param dataSourceId</span><br><span class="line">     * @return</span><br><span class="line">     * @author SHANHY</span><br><span class="line">     * @create  2016年1月24日</span><br><span class="line">     */</span><br><span class="line">    public static boolean containsDataSource(String dataSourceId)&#123;</span><br><span class="line">        return dataSourceIds.contains(dataSourceId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line">package com.lvmama.datasource.config;</span><br><span class="line"></span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.beans.MutablePropertyValues;</span><br><span class="line">import org.springframework.beans.PropertyValues;</span><br><span class="line">import org.springframework.beans.factory.support.BeanDefinitionRegistry;</span><br><span class="line">import org.springframework.beans.factory.support.GenericBeanDefinition;</span><br><span class="line">import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;</span><br><span class="line">import org.springframework.boot.bind.RelaxedDataBinder;</span><br><span class="line">import org.springframework.boot.bind.RelaxedPropertyResolver;</span><br><span class="line">import org.springframework.context.EnvironmentAware;</span><br><span class="line">import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;</span><br><span class="line">import org.springframework.core.convert.ConversionService;</span><br><span class="line">import org.springframework.core.convert.support.DefaultConversionService;</span><br><span class="line">import org.springframework.core.env.Environment;</span><br><span class="line">import org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar, EnvironmentAware&#123;</span><br><span class="line">	private static final Logger logger = LoggerFactory.getLogger(DynamicDataSourceRegister.class);</span><br><span class="line"></span><br><span class="line">    private ConversionService conversionService = new DefaultConversionService();</span><br><span class="line">    private PropertyValues dataSourcePropertyValues;</span><br><span class="line"></span><br><span class="line">    // 如配置文件中未指定数据源类型，使用该默认值</span><br><span class="line"></span><br><span class="line">    private static final Object DATASOURCE_TYPE_DEFAULT = &quot;com.alibaba.druid.pool.DruidDataSource&quot;;</span><br><span class="line"></span><br><span class="line">    // 数据源</span><br><span class="line">    private DataSource defaultDataSource;</span><br><span class="line">    private Map&lt;String, DataSource&gt; customDataSources = new HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) &#123;</span><br><span class="line">        Map&lt;Object, Object&gt; targetDataSources = new HashMap&lt;Object, Object&gt;();</span><br><span class="line">        // 将主数据源添加到更多数据源中</span><br><span class="line">        targetDataSources.put(&quot;dataSource&quot;, defaultDataSource);</span><br><span class="line">        DynamicDataSourceContextHolder.dataSourceIds.add(&quot;dataSource&quot;);</span><br><span class="line">        // 添加更多数据源</span><br><span class="line">        targetDataSources.putAll(customDataSources);</span><br><span class="line">        for (String key : customDataSources.keySet()) &#123;</span><br><span class="line">            DynamicDataSourceContextHolder.dataSourceIds.add(key);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 创建DynamicDataSource</span><br><span class="line">        GenericBeanDefinition beanDefinition = new GenericBeanDefinition();</span><br><span class="line">        beanDefinition.setBeanClass(DynamicDataSource.class);</span><br><span class="line">        beanDefinition.setSynthetic(true);</span><br><span class="line">        MutablePropertyValues mpv = beanDefinition.getPropertyValues();</span><br><span class="line">        mpv.addPropertyValue(&quot;defaultTargetDataSource&quot;, defaultDataSource);</span><br><span class="line">        mpv.addPropertyValue(&quot;targetDataSources&quot;, targetDataSources);</span><br><span class="line">        registry.registerBeanDefinition(&quot;dataSource&quot;, beanDefinition);</span><br><span class="line"></span><br><span class="line">        logger.info(&quot;Dynamic DataSource Registry&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">    public DataSource buildDataSource(Map&lt;String, Object&gt; dsMap) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            Object type = dsMap.get(&quot;type&quot;);</span><br><span class="line">            if (type == null)</span><br><span class="line">                type = DATASOURCE_TYPE_DEFAULT;// 默认DataSource</span><br><span class="line"></span><br><span class="line">            Class&lt;? extends DataSource&gt; dataSourceType;</span><br><span class="line">            dataSourceType = (Class&lt;? extends DataSource&gt;) Class.forName((String) type);</span><br><span class="line"></span><br><span class="line">            String driverClassName = dsMap.get(&quot;driver-class-name&quot;).toString();</span><br><span class="line">            String url = dsMap.get(&quot;url&quot;).toString();</span><br><span class="line">            String username = dsMap.get(&quot;username&quot;).toString();</span><br><span class="line">            String password = dsMap.get(&quot;password&quot;).toString();</span><br><span class="line"></span><br><span class="line">            DataSourceBuilder factory = DataSourceBuilder.create().driverClassName(driverClassName).url(url)</span><br><span class="line">                    .username(username).password(password).type(dataSourceType);</span><br><span class="line">            return factory.build();</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 加载多数据源配置</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void setEnvironment(Environment env) &#123;</span><br><span class="line">        initDefaultDataSource(env);</span><br><span class="line">        initCustomDataSources(env);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private void initDefaultDataSource(Environment env) &#123;</span><br><span class="line">        // 读取主数据源</span><br><span class="line">        RelaxedPropertyResolver propertyResolver = new RelaxedPropertyResolver(env, &quot;spring.datasource.&quot;);</span><br><span class="line">        Map&lt;String, Object&gt; dsMap = new HashMap&lt;&gt;();</span><br><span class="line">        dsMap.put(&quot;type&quot;, propertyResolver.getProperty(&quot;type&quot;));</span><br><span class="line">        dsMap.put(&quot;driver-class-name&quot;, propertyResolver.getProperty(&quot;driver-class-name&quot;));</span><br><span class="line">        dsMap.put(&quot;url&quot;, propertyResolver.getProperty(&quot;url&quot;));</span><br><span class="line">        dsMap.put(&quot;username&quot;, propertyResolver.getProperty(&quot;username&quot;));</span><br><span class="line">        dsMap.put(&quot;password&quot;, propertyResolver.getProperty(&quot;password&quot;));</span><br><span class="line"></span><br><span class="line">        defaultDataSource = buildDataSource(dsMap);</span><br><span class="line"></span><br><span class="line">        dataBinder(defaultDataSource, env);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private void dataBinder(DataSource dataSource, Environment env)&#123;</span><br><span class="line">        RelaxedDataBinder dataBinder = new RelaxedDataBinder(dataSource);</span><br><span class="line">        //dataBinder.setValidator(new LocalValidatorFactory().run(this.applicationContext));</span><br><span class="line">        dataBinder.setConversionService(conversionService);</span><br><span class="line">        dataBinder.setIgnoreNestedProperties(false);//false</span><br><span class="line">        dataBinder.setIgnoreInvalidFields(false);//false</span><br><span class="line">        dataBinder.setIgnoreUnknownFields(true);//true</span><br><span class="line">        if(dataSourcePropertyValues == null)&#123;</span><br><span class="line">            Map&lt;String, Object&gt; rpr = new RelaxedPropertyResolver(env, &quot;spring.datasource&quot;).getSubProperties(&quot;.&quot;);</span><br><span class="line">            Map&lt;String, Object&gt; values = new HashMap&lt;&gt;(rpr);</span><br><span class="line">            // 排除已经设置的属性</span><br><span class="line">            values.remove(&quot;type&quot;);</span><br><span class="line">            values.remove(&quot;driver-class-name&quot;);</span><br><span class="line">            values.remove(&quot;url&quot;);</span><br><span class="line">            values.remove(&quot;username&quot;);</span><br><span class="line">            values.remove(&quot;password&quot;);</span><br><span class="line">            dataSourcePropertyValues = new MutablePropertyValues(values);</span><br><span class="line">        &#125;</span><br><span class="line">        dataBinder.bind(dataSourcePropertyValues);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private void initCustomDataSources(Environment env) &#123;</span><br><span class="line">        // 读取配置文件获取更多数据源，也可以通过defaultDataSource读取数据库获取更多数据源</span><br><span class="line">        RelaxedPropertyResolver propertyResolver = new RelaxedPropertyResolver(env, &quot;custom.datasource.&quot;);</span><br><span class="line">        String dsPrefixs = propertyResolver.getProperty(&quot;names&quot;);</span><br><span class="line">        for (String dsPrefix : dsPrefixs.split(&quot;,&quot;)) &#123;// 多个数据源</span><br><span class="line">            Map&lt;String, Object&gt; dsMap = propertyResolver.getSubProperties(dsPrefix + &quot;.&quot;);</span><br><span class="line">            DataSource ds = buildDataSource(dsMap);</span><br><span class="line">            customDataSources.put(dsPrefix, ds);</span><br><span class="line">            dataBinder(ds, env);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package com.lvmama.datasource.config;</span><br><span class="line"></span><br><span class="line">import java.lang.annotation.Documented;</span><br><span class="line">import java.lang.annotation.ElementType;</span><br><span class="line">import java.lang.annotation.Retention;</span><br><span class="line">import java.lang.annotation.RetentionPolicy;</span><br><span class="line">import java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Target(&#123; ElementType.METHOD, ElementType.TYPE &#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">public @interface TargetDataSource &#123;</span><br><span class="line">	String name();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-动态实现jdbc及es切换"><a href="#2-动态实现jdbc及es切换" class="headerlink" title="2.动态实现jdbc及es切换"></a>2.动态实现jdbc及es切换</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package com.lvmama.datasource.service.strategy.base;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.InitializingBean;</span><br><span class="line"></span><br><span class="line">public class BaseStrategy&lt;T&gt; implements InitializingBean&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void afterPropertiesSet() throws Exception &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">package com.lvmama.datasource.service.strategy.base;</span><br><span class="line"></span><br><span class="line">import java.lang.reflect.ParameterizedType;</span><br><span class="line">import java.lang.reflect.Type;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.lang.StringUtils;</span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line"></span><br><span class="line">import com.lvmama.context.ApplicationContextUtil;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class FrontBaseStrategy&lt;T&gt; extends BaseStrategy&lt;T&gt; &#123;</span><br><span class="line">	protected T clientService;</span><br><span class="line"></span><br><span class="line">	protected static final String REMOTE = &quot;Remote&quot;;</span><br><span class="line"></span><br><span class="line">	@Value(&quot;$&#123;service_strategy&#125;&quot;)</span><br><span class="line">	private String strategy;</span><br><span class="line"></span><br><span class="line">	private Class&lt;T&gt; entityClass;</span><br><span class="line"></span><br><span class="line">	private String genericSimpleName;</span><br><span class="line"></span><br><span class="line">	@SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">	public FrontBaseStrategy() &#123;</span><br><span class="line">		super();</span><br><span class="line">		//子类中保存父类泛型，父类中保存不了泛型，会泛型擦除  类似HibernateBaseDao&lt;T&gt; implements BaseDao&lt;T&gt;</span><br><span class="line">		Type genType = this.getClass().getGenericSuperclass();</span><br><span class="line">		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();</span><br><span class="line">		entityClass = (Class&lt;T&gt;) params[0];</span><br><span class="line">		genericSimpleName = entityClass.getSimpleName();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">	@Override</span><br><span class="line">	public void afterPropertiesSet() throws Exception &#123;</span><br><span class="line">		this.initClientService(this.strategy);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	protected void initClientService(String strategy1)&#123;</span><br><span class="line">		if(StringUtils.isNotBlank(strategy1))&#123;</span><br><span class="line">			this.clientService = (T) ApplicationContextUtil.getBean(strategy1 + genericSimpleName);</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			this.clientService = (T) ApplicationContextUtil.getBean(this.strategy + genericSimpleName);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package com.lvmama.datasource.service.strategy.impl;</span><br><span class="line"></span><br><span class="line">import javax.transaction.Transactional;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">import com.lvmama.datasource.service.base.IUserBaseService;</span><br><span class="line">import com.lvmama.datasource.service.strategy.IUserBaseStrategyService;</span><br><span class="line">import com.lvmama.datasource.service.strategy.base.FrontBaseStrategy;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Component(&quot;userStrategyService&quot;)</span><br><span class="line">public class UserStrategyServiceImpl extends FrontBaseStrategy&lt;IUserBaseService&gt; implements IUserBaseStrategyService &#123;</span><br><span class="line"></span><br><span class="line">	@Value(&quot;$&#123;user_strategy:&#125;&quot;)</span><br><span class="line">	private String strategy;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void afterPropertiesSet() throws Exception &#123;</span><br><span class="line">		this.initClientService(strategy);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public int count() &#123;</span><br><span class="line">		return this.clientService.count();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package com.lvmama.datasource.service.mybatis;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import javax.annotation.Resource;</span><br><span class="line">import javax.transaction.Transactional;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">import com.lvmama.datasource.config.TargetDataSource;</span><br><span class="line">import com.lvmama.datasource.dao.mybatis.UserMyBatisDao;</span><br><span class="line">import com.lvmama.datasource.domain.User;</span><br><span class="line">import com.lvmama.datasource.service.base.IUserBaseService;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Service(&quot;mybatisIUserBaseService&quot;)</span><br><span class="line">@Transactional</span><br><span class="line">public class UserMybatisServiceImpl implements IUserBaseService &#123;</span><br><span class="line">	@Resource</span><br><span class="line">	private UserMyBatisDao userMyBatisDao;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	@TargetDataSource(name =&quot;ds2&quot;)</span><br><span class="line">	public int count() &#123;</span><br><span class="line">		return userMyBatisDao.count();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/spring/" rel="tag"># spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/13/spring-async/" rel="next" title="Spring异步任务，@Async配置和使用">
+                <i class="fa fa-chevron-left"></i> Spring异步任务，@Async配置和使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/01/java-policy/" rel="prev" title="JDK 线程">
+                JDK 线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="NICK" />
+          <p class="site-author-name" itemprop="name">NICK</p>
+           
+              <p class="site-description motion-element" itemprop="description">整理一些基础知识</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/EZLippi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-AOP实现动态jdbc切换"><span class="nav-number">1.</span> <span class="nav-text">1.AOP实现动态jdbc切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-动态实现jdbc及es切换"><span class="nav-number">2.</span> <span class="nav-text">2.动态实现jdbc及es切换</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NICK</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

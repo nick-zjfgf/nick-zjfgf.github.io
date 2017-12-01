@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JAVA," />
+  <meta name="keywords" content="java,spring," />
 
 
 
@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="整理一些基础知识">
-<meta name="keywords" content="JAVA">
+<meta name="description" content="一、描述这个注解用于标注某个方法或某个类里面的所有方法都是需要异步处理的。被注解的方法被调用的时候，会在新线程中执行，而调用它的方法会在原来的线程中执行。这样可以避免阻塞、以及保证任务的实时性。适用于处理log、发送邮件、短信……等。 二、应用范围 类：表示这个类中的所有方法都是异步的； 方法：表示这个方法是异步的，如果类也注解了，则以这个方法的注解为准。  三、相关配置1.&amp;lt;task:an">
+<meta name="keywords" content="java,spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello3">
-<meta property="og:url" content="http://yoursite.com/2017/11/12/Hello3/index.html">
+<meta property="og:title" content="Spring异步任务，@Async配置和使用">
+<meta property="og:url" content="http://yoursite.com/2017/11/13/spring-async/index.html">
 <meta property="og:site_name" content="知识（学习、传播、共享）">
-<meta property="og:description" content="整理一些基础知识">
+<meta property="og:description" content="一、描述这个注解用于标注某个方法或某个类里面的所有方法都是需要异步处理的。被注解的方法被调用的时候，会在新线程中执行，而调用它的方法会在原来的线程中执行。这样可以避免阻塞、以及保证任务的实时性。适用于处理log、发送邮件、短信……等。 二、应用范围 类：表示这个类中的所有方法都是异步的； 方法：表示这个方法是异步的，如果类也注解了，则以这个方法的注解为准。  三、相关配置1.&amp;lt;task:an">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-12T13:16:03.523Z">
+<meta property="og:updated_time" content="2017-11-21T13:12:54.034Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello3">
-<meta name="twitter:description" content="整理一些基础知识">
+<meta name="twitter:title" content="Spring异步任务，@Async配置和使用">
+<meta name="twitter:description" content="一、描述这个注解用于标注某个方法或某个类里面的所有方法都是需要异步处理的。被注解的方法被调用的时候，会在新线程中执行，而调用它的方法会在原来的线程中执行。这样可以避免阻塞、以及保证任务的实时性。适用于处理log、发送邮件、短信……等。 二、应用范围 类：表示这个类中的所有方法都是异步的； 方法：表示这个方法是异步的，如果类也注解了，则以这个方法的注解为准。  三、相关配置1.&amp;lt;task:an">
 
 
 
@@ -136,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/11/12/Hello3/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/13/spring-async/"/>
 
 
 
 
 
-  <title>Hello3 | 知识（学习、传播、共享）</title>
+  <title>Spring异步任务，@Async配置和使用 | 知识（学习、传播、共享）</title>
   
 
 
@@ -319,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/12/Hello3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/13/spring-async/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="NICK">
@@ -336,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello3</h1>
+          <h1 class="post-title" itemprop="name headline">Spring异步任务，@Async配置和使用</h1>
         
 
         <div class="post-meta">
@@ -348,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T20:29:37+08:00">
-                2017-11-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T10:14:53+08:00">
+                2017-11-13
               </time>
             
 
@@ -371,8 +371,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -408,7 +408,52 @@
       
 
       
-        
+        <h2 id="一、描述"><a href="#一、描述" class="headerlink" title="一、描述"></a>一、描述</h2><p>这个注解用于标注某个方法或某个类里面的所有方法都是需要异步处理的。被注解的方法被调用的时候，会在新线程中执行，而调用它的方法会在原来的线程中执行。这样可以避免阻塞、以及保证任务的实时性。适用于处理log、发送邮件、短信……等。</p>
+<h2 id="二、应用范围"><a href="#二、应用范围" class="headerlink" title="二、应用范围"></a>二、应用范围</h2><ul>
+<li>类：表示这个类中的所有方法都是异步的；</li>
+<li>方法：表示这个方法是异步的，如果类也注解了，则以这个方法的注解为准。</li>
+</ul>
+<h2 id="三、相关配置"><a href="#三、相关配置" class="headerlink" title="三、相关配置"></a>三、相关配置</h2><h3 id="1-lt-task-annotation-driven-gt"><a href="#1-lt-task-annotation-driven-gt" class="headerlink" title="1.&lt;task:annotation-driven /&gt;"></a>1.<code>&lt;task:annotation-driven /&gt;</code></h3><ul>
+<li>executor：指定一个缺省的executor给@Async使用。</li>
+<li>例子：<code>&lt;task:annotation-driven executor=&quot;asyncExecutor&quot; /&gt;</code></li>
+</ul>
+<h3 id="2-lt-task-executor-gt"><a href="#2-lt-task-executor-gt" class="headerlink" title="2.&lt;task:executor /&gt;"></a>2.<code>&lt;task:executor /&gt;</code></h3><ul>
+<li>id：当配置多个executor时，被@Async(“id”)指定使用；也被作为线程名的前缀。</li>
+<li>pool-size：</li>
+<li>core size：最小的线程数，缺省：1</li>
+<li>max size：最大的线程数，缺省：Integer.MAX_VALUE</li>
+<li>queue-capacity：当最小的线程数已经被占用满后，新的任务会被放进queue里面，当这个queue的capacity也被占满之后，pool里面会创建新线程处理这个任务，直到总线程数达到了max size，这时系统会拒绝这个任务并抛出TaskRejectedException异常（缺省配置的情况下，可以通过rejection-policy来决定如何处理这种情况）。缺省值为：Integer.MAX_VALUE</li>
+<li>keep-alive：超过core size的那些线程，任务完成后，再经过这个时长（秒）会被结束掉</li>
+<li>rejection-policy：当pool已经达到max size的时候，如何处理新任务</li>
+<li><ul>
+<li>ABORT（缺省）：抛出TaskRejectedException异常，然后不执行</li>
+</ul>
+</li>
+<li><ul>
+<li>DISCARD：不执行，也不抛出异常</li>
+</ul>
+</li>
+<li><ul>
+<li>DISCARD_OLDEST：丢弃queue中最旧的那个任务</li>
+</ul>
+</li>
+<li><ul>
+<li>CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-配置例子"><a href="#3-配置例子" class="headerlink" title="3.配置例子"></a>3.配置例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;task:annotation-driven executor=&quot;asyncExecutor&quot; /&gt;</span><br><span class="line">&lt;task:executor id=&quot;asyncExecutor&quot; pool-size=&quot;100-10000&quot; queue-capacity=&quot;10&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 缺省的异步任务线程池 --&gt;   </span><br><span class="line">&lt;task:annotation-driven executor=&quot;asyncExecutor&quot; /&gt;  </span><br><span class="line">&lt;task:executor id=&quot;asyncExecutor&quot; pool-size=&quot;100-10000&quot; queue-capacity=&quot;10&quot; /&gt;  </span><br><span class="line"></span><br><span class="line">&lt;!-- 处理log的线程池 --&gt;  </span><br><span class="line">&lt;task:executor id=&quot;logExecutor&quot; pool-size=&quot;15-1000&quot; queue-capacity=&quot;5&quot; keep-alive=&quot;5&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Override  </span><br><span class="line">@Async(&quot;logExecutor&quot;)    //如果不指定名字，会使用缺省的“asyncExecutor”  </span><br><span class="line">public void saveUserOpLog(TabUserOpLog tabUserOpLog) &#123;  </span><br><span class="line"></span><br><span class="line"> userOpLogDAO.insertTabUserOpLog(tabUserOpLog);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-线程的优先级和类型："><a href="#4-线程的优先级和类型：" class="headerlink" title="4.线程的优先级和类型："></a>4.线程的优先级和类型：</h3><ul>
+<li>优先级：NORM_PRIORITY</li>
+<li>类型：非守护线程</li>
+<li>用户线程（User Thread）：JVM会等待所有的用户线程结束后才退出；当系统中没有用户线程了，JVM也就退出了</li>
+<li>守护线程（Daemon Thread）：一般是为其他线程提供服务的线程，比如GC垃圾回收器；JVM退出时，不会管守护线程是否存在，而是直接退出</li>
+<li>所以，对于文件、数据库的操作，不适宜使用守护线程，不然可能会丢失数据！</li>
+</ul>
+<h3 id="4-附"><a href="#4-附" class="headerlink" title="4.附"></a>4.附</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@Configuration  </span><br><span class="line">@EnableAsync  </span><br><span class="line">public class SpringConfig &#123;  </span><br><span class="line"></span><br><span class="line">    /** Set the ThreadPoolExecutor&apos;s core pool size. */  </span><br><span class="line">    private int corePoolSize = 10;  </span><br><span class="line">    /** Set the ThreadPoolExecutor&apos;s maximum pool size. */  </span><br><span class="line">    private int maxPoolSize = 200;  </span><br><span class="line">    /** Set the capacity for the ThreadPoolExecutor&apos;s BlockingQueue. */  </span><br><span class="line">    private int queueCapacity = 10;  </span><br><span class="line"></span><br><span class="line">    private String ThreadNamePrefix = &quot;MyLogExecutor-&quot;;  </span><br><span class="line"></span><br><span class="line">    @Bean  </span><br><span class="line">    public Executor logExecutor() &#123;  </span><br><span class="line">        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();  </span><br><span class="line">        executor.setCorePoolSize(corePoolSize);  </span><br><span class="line">        executor.setMaxPoolSize(maxPoolSize);  </span><br><span class="line">        executor.setQueueCapacity(queueCapacity);  </span><br><span class="line">        executor.setThreadNamePrefix(ThreadNamePrefix);  </span><br><span class="line"></span><br><span class="line">        // rejection-policy：当pool已经达到max size的时候，如何处理新任务  </span><br><span class="line">        // CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行  </span><br><span class="line">        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());  </span><br><span class="line">        executor.initialize();  </span><br><span class="line">        return executor;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -425,7 +470,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/spring/" rel="tag"># spring</a>
           
         </div>
       
@@ -438,8 +485,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/12/Hello2/" rel="next" title="Hello2">
-                <i class="fa fa-chevron-left"></i> Hello2
+              <a href="/2017/11/08/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
@@ -447,6 +494,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/20/dynamic-datasource/" rel="prev" title="动态数据源实现">
+                动态数据源实现 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -498,8 +549,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -525,7 +585,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -536,7 +596,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -581,6 +641,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、描述"><span class="nav-number">1.</span> <span class="nav-text">一、描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、应用范围"><span class="nav-number">2.</span> <span class="nav-text">二、应用范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、相关配置"><span class="nav-number">3.</span> <span class="nav-text">三、相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-lt-task-annotation-driven-gt"><span class="nav-number">3.1.</span> <span class="nav-text">1.<task:annotation-driven /></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-lt-task-executor-gt"><span class="nav-number">3.2.</span> <span class="nav-text">2.<task:executor /></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置例子"><span class="nav-number">3.3.</span> <span class="nav-text">3.配置例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-线程的优先级和类型："><span class="nav-number">3.4.</span> <span class="nav-text">4.线程的优先级和类型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-附"><span class="nav-number">3.5.</span> <span class="nav-text">4.附</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
