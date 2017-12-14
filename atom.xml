@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-12-01T15:10:04.596Z</updated>
+  <updated>2017-12-09T14:45:44.287Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分摊相关概念</title>
+    <link href="http://yoursite.com/2017/12/07/business-apportion/"/>
+    <id>http://yoursite.com/2017/12/07/business-apportion/</id>
+    <published>2017-12-07T13:25:26.000Z</published>
+    <updated>2017-12-09T14:45:44.287Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="分摊"><a href="#分摊" class="headerlink" title="分摊"></a>分摊</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;分摊&quot;&gt;&lt;a href=&quot;#分摊&quot; class=&quot;headerlink&quot; title=&quot;分摊&quot;&gt;&lt;/a&gt;分摊&lt;/h1&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="Business" scheme="http://yoursite.com/tags/Business/"/>
+    
+      <category term="Apportion" scheme="http://yoursite.com/tags/Apportion/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>BigData 读书杂记</title>
+    <link href="http://yoursite.com/2017/12/07/tech-article-big-data/"/>
+    <id>http://yoursite.com/2017/12/07/tech-article-big-data/</id>
+    <published>2017-12-07T13:18:29.000Z</published>
+    <updated>2017-12-14T15:45:31.917Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、数据结构重要性"><a href="#1、数据结构重要性" class="headerlink" title="1、数据结构重要性"></a>1、数据结构重要性</h2><blockquote><div>一个好的数据结构和一个糟糕的代码，比一个糟糕的数据结构和好的代码要强多了。</div><div align="right">–埃里克●雷蒙,美国软件开源运动的领导者，1999年</div></blockquote><h2 id="2、信息自由法"><a href="#2、信息自由法" class="headerlink" title="2、信息自由法"></a>2、信息自由法</h2><blockquote><div>信息之于民主，就如货币之于经济</div><div align="right">–托马斯●杰斐逊（1743-1826），第3任美国总统</div></blockquote><h2 id="3、摩尔定律"><a href="#3、摩尔定律" class="headerlink" title="3、摩尔定律"></a>3、摩尔定律</h2><blockquote><div>摩尔定律已经成为工业界一切呈指数型增长事务的代名词。……下一个十年，摩尔定律可能还将有效……可以肯定的是，创新无止境。</div><div align="right">–戈登●摩尔，英特尔公司创始人，2003年</div></blockquote><h2 id="4、发展过程"><a href="#4、发展过程" class="headerlink" title="4、发展过程"></a>4、发展过程</h2><p>数据-&gt;信息-&gt;知识</p><p>数据：是对信息数字化的记录，其本身并无意义；</p><p>信息：是指把数据放置到一定的背景下，对数字进行解释、赋予意义。</p><p>例如：“1.85” 是个数据，“奥巴马身高1.85米”则是一条信息。</p><p>但进入信息时代之后，人们趋向把所有存储在计算机上的信息，无论是数字还是音乐、视频，都统称为数据。</p><h2 id="5、最小数据集（Minimum-Data-Set，MDS）"><a href="#5、最小数据集（Minimum-Data-Set，MDS）" class="headerlink" title="5、最小数据集（Minimum Data Set，MDS）"></a>5、最小数据集（Minimum Data Set，MDS）</h2><p>最小数据集是指通过手机最少的数据，最好地掌握一个研究对象所具有的特定或一件事情、一份工作所处的状态，其中核心是针对被观察的对象建立一套精简实用的数据指标。</p><h2 id="6、软件的构成"><a href="#6、软件的构成" class="headerlink" title="6、软件的构成"></a>6、软件的构成</h2><p>程序（代码）+数据（数据库）<br>程序和数据的关系，就好像发动机和燃料，所有的程序，都是靠数据驱动的，数据之于程序，又好比血液之于人体，一旦血液停止流动，人就失去了生命，代码也将停止运行。</p><h2 id="7、普适计算"><a href="#7、普适计算" class="headerlink" title="7、普适计算"></a>7、普适计算</h2><blockquote><p><div></div><div align="right">&lt;/div》</div></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1、数据结构重要性&quot;&gt;&lt;a href=&quot;#1、数据结构重要性&quot; class=&quot;headerlink&quot; title=&quot;1、数据结构重要性&quot;&gt;&lt;/a&gt;1、数据结构重要性&lt;/h2&gt;&lt;blockquote&gt;
+&lt;div&gt;一个好的数据结构和一个糟糕的代码，比一个糟糕的数据结构
+      
+    
+    </summary>
+    
+      <category term="Book" scheme="http://yoursite.com/categories/Book/"/>
+    
+    
+      <category term="BigData" scheme="http://yoursite.com/tags/BigData/"/>
+    
+      <category term="Book" scheme="http://yoursite.com/tags/Book/"/>
+    
+  </entry>
   
   <entry>
     <title>JDK 线程</title>
@@ -69,6 +122,31 @@
   </entry>
   
   <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2017/11/20/hello-world/"/>
+    <id>http://yoursite.com/2017/11/20/hello-world/</id>
+    <published>2017-11-20T03:58:34.279Z</published>
+    <updated>2017-11-20T03:58:34.279Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+      <category term="JAVA" scheme="http://yoursite.com/categories/JAVA/"/>
+    
+    
+      <category term="JAVA" scheme="http://yoursite.com/tags/JAVA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring异步任务，@Async配置和使用</title>
     <link href="http://yoursite.com/2017/11/13/spring-async/"/>
     <id>http://yoursite.com/2017/11/13/spring-async/</id>
@@ -92,31 +170,6 @@
       <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
       <category term="spring" scheme="http://yoursite.com/tags/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2017/11/08/hello-world/"/>
-    <id>http://yoursite.com/2017/11/08/hello-world/</id>
-    <published>2017-11-08T14:32:27.154Z</published>
-    <updated>2017-11-12T13:16:09.725Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
-    
-    </summary>
-    
-      <category term="JAVA" scheme="http://yoursite.com/categories/JAVA/"/>
-    
-    
-      <category term="JAVA" scheme="http://yoursite.com/tags/JAVA/"/>
     
   </entry>
   
