@@ -99,7 +99,7 @@
 <meta name="description" content="整理一些基础知识">
 <meta property="og:type" content="website">
 <meta property="og:title" content="知识（学习、传播、共享）">
-<meta property="og:url" content="http://yoursite.com/categories/java/index.html">
+<meta property="og:url" content="http://yoursite.com/categories/JAVA/index.html">
 <meta property="og:site_name" content="知识（学习、传播、共享）">
 <meta property="og:description" content="整理一些基础知识">
 <meta property="og:locale" content="zh-Hans">
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/java/"/>
+  <link rel="canonical" href="http://yoursite.com/categories/JAVA/"/>
 
 
 
 
 
-  <title>分类: java | 知识（学习、传播、共享）</title>
+  <title>分类: JAVA | 知识（学习、传播、共享）</title>
   
 
 
@@ -310,7 +310,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>java<small>分类</small>
+        <h1>JAVA<small>分类</small>
         </h1>
       </div>
 
@@ -322,37 +322,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2017/11/20/dynamic-datasource/" itemprop="url">
+            <a class="post-title-link" href="/2017/11/08/hello-world/" itemprop="url">
               
-                <span itemprop="name">动态数据源实现</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-11-20T13:22:54+08:00"
-              content="2017-11-20" >
-          11-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/11/13/spring-async/" itemprop="url">
-              
-                <span itemprop="name">Spring异步任务，@Async配置和使用</span>
+                <span itemprop="name">Hello World</span>
               
             </a>
         
@@ -360,9 +332,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2017-11-13T10:14:53+08:00"
-              content="2017-11-13" >
-          11-13
+              datetime="2017-11-08T22:32:27+08:00"
+              content="2017-11-08" >
+          11-08
         </time>
       </div>
 
@@ -423,7 +395,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -434,7 +406,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -445,7 +417,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -936,6 +908,50 @@
           proceedsearch();
         }
       });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+    });
     }
 
     // handle and trigger popup window;

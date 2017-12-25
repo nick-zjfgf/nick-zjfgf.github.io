@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-12-09T14:45:44.287Z</updated>
+  <updated>2017-12-21T14:39:21.658Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git-reset</title>
+    <link href="http://yoursite.com/2017/12/19/git-reset/"/>
+    <id>http://yoursite.com/2017/12/19/git-reset/</id>
+    <published>2017-12-19T12:34:57.000Z</published>
+    <updated>2017-12-21T14:39:21.658Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1、git-log"><a href="#1、git-log" class="headerlink" title="1、git log"></a>1、git log</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log 查看历史记录</span><br></pre></td></tr></table></figure><h1 id="2、reflog"><a href="#2、reflog" class="headerlink" title="2、reflog"></a>2、reflog</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br><span class="line"></span><br><span class="line">c8f870f HEAD@&#123;0&#125;: reset: moving to c8f870f</span><br><span class="line">86a836f HEAD@&#123;1&#125;: reset: moving to 86a836f</span><br><span class="line">cb3f9a1 HEAD@&#123;2&#125;: reset: moving to cb3f9a1</span><br><span class="line">86a836f HEAD@&#123;3&#125;: commit: erererer</span><br><span class="line">c8f870f HEAD@&#123;4&#125;: pull origin order: Fast-forward</span><br><span class="line">e6ed90f HEAD@&#123;5&#125;: checkout: moving from thursday to order</span><br><span class="line">cb3f9a1 HEAD@&#123;6&#125;: commit: erererer</span><br><span class="line">3a2dc37 HEAD@&#123;7&#125;: checkout: moving from order to thursday</span><br><span class="line">e6ed90f HEAD@&#123;8&#125;: commit: ddddd</span><br><span class="line">1523a5f HEAD@&#123;9&#125;: commit (merge): Merge branch &apos;revert-9097312f&apos; into order</span><br><span class="line">8a0ca84 HEAD@&#123;10&#125;: checkout: moving from revert-9097312f to order</span><br><span class="line">b0a1ae7 HEAD@&#123;11&#125;: checkout: moving from revert-8d0a42dc to revert-9097312f</span><br><span class="line">640aae1 HEAD@&#123;12&#125;: checkout: moving from order to revert-8d0a42dc</span><br><span class="line">8a0ca84 HEAD@&#123;13&#125;: pull origin order: Fast-forward</span><br><span class="line">f7473e4 HEAD@&#123;14&#125;: checkout: moving from master to order</span><br><span class="line">9bf0448 HEAD@&#123;15&#125;: pull origin master: Fast-forward</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">它会记录所有HEAD的历史，也就是说当你做 reset，checkout等操作的时候，这些操作会被记录在reflog中</span><br></pre></td></tr></table></figure><h1 id="3、利用reset命令本地进行还原"><a href="#3、利用reset命令本地进行还原" class="headerlink" title="3、利用reset命令本地进行还原"></a>3、利用reset命令本地进行还原</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard  a1edaeb37a5</span><br></pre></td></tr></table></figure><p>这看起来我们是丢掉了之前的提交记录，本地的修改也消失了，可以通过<code>git reflog</code>找回来</p><h1 id="4、强制push-到远程仓库"><a href="#4、强制push-到远程仓库" class="headerlink" title="4、强制push 到远程仓库"></a>4、强制push 到远程仓库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -f  http://root@10.112.1.199/lvmm_dest_project/lvmm_test.git master:master</span><br></pre></td></tr></table></figure><h1 id="5、help"><a href="#5、help" class="headerlink" title="5、help"></a>5、help</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --help</span><br></pre></td></tr></table></figure><h1 id="6、模式-mode"><a href="#6、模式-mode" class="headerlink" title="6、模式(mode)"></a>6、模式(mode)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --&lt;mode&gt; [&lt;commit&gt;]</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--soft  这个就是除了git commit 还原外其他的都保留，比如说git status 里面的内容和代码的修改。</span><br><span class="line">--mixed 这个就是 除了代码修改保留外其他的都还原， 包括git commit 和 git status 里面的内容。</span><br><span class="line">--hard  这个就将所有的都还原，包括代码 ，git add 后的内容以及 git commit 里面的内容。</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;1、git-log&quot;&gt;&lt;a href=&quot;#1、git-log&quot; class=&quot;headerlink&quot; title=&quot;1、git log&quot;&gt;&lt;/a&gt;1、git log&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;t
+      
+    
+    </summary>
+    
+      <category term="git" scheme="http://yoursite.com/categories/git/"/>
+    
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>分摊相关概念</title>
@@ -122,31 +147,6 @@
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2017/11/20/hello-world/"/>
-    <id>http://yoursite.com/2017/11/20/hello-world/</id>
-    <published>2017-11-20T03:58:34.279Z</published>
-    <updated>2017-11-20T03:58:34.279Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
-    
-    </summary>
-    
-      <category term="JAVA" scheme="http://yoursite.com/categories/JAVA/"/>
-    
-    
-      <category term="JAVA" scheme="http://yoursite.com/tags/JAVA/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Spring异步任务，@Async配置和使用</title>
     <link href="http://yoursite.com/2017/11/13/spring-async/"/>
     <id>http://yoursite.com/2017/11/13/spring-async/</id>
@@ -170,6 +170,31 @@
       <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
       <category term="spring" scheme="http://yoursite.com/tags/spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2017/11/08/hello-world/"/>
+    <id>http://yoursite.com/2017/11/08/hello-world/</id>
+    <published>2017-11-08T14:32:27.154Z</published>
+    <updated>2017-11-12T13:16:09.725Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+      <category term="JAVA" scheme="http://yoursite.com/categories/JAVA/"/>
+    
+    
+      <category term="JAVA" scheme="http://yoursite.com/tags/JAVA/"/>
     
   </entry>
   

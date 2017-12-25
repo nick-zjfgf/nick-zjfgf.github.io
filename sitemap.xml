@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/12/19/git-reset/</loc>
+    
+    <lastmod>2017-12-21T14:39:21.658Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/12/07/tech-article-big-data/</loc>
     
     <lastmod>2017-12-14T15:45:31.917Z</lastmod>
@@ -37,16 +44,16 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2017/11/20/hello-world/</loc>
+    <loc>http://yoursite.com/about/index.html</loc>
     
-    <lastmod>2017-11-20T03:58:34.279Z</lastmod>
+    <lastmod>2017-11-12T13:23:40.885Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/about/index.html</loc>
+    <loc>http://yoursite.com/2017/11/08/hello-world/</loc>
     
-    <lastmod>2017-11-12T13:23:40.885Z</lastmod>
+    <lastmod>2017-11-12T13:16:09.725Z</lastmod>
     
   </url>
   

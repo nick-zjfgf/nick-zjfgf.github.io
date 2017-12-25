@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[git-reset]]></title>
+    <url>%2F2017%2F12%2F19%2Fgit-reset%2F</url>
+    <content type="text"><![CDATA[1、git log1git log 查看历史记录 2、reflog123456789101112131415161718git reflogc8f870f HEAD@&#123;0&#125;: reset: moving to c8f870f86a836f HEAD@&#123;1&#125;: reset: moving to 86a836fcb3f9a1 HEAD@&#123;2&#125;: reset: moving to cb3f9a186a836f HEAD@&#123;3&#125;: commit: ererererc8f870f HEAD@&#123;4&#125;: pull origin order: Fast-forwarde6ed90f HEAD@&#123;5&#125;: checkout: moving from thursday to ordercb3f9a1 HEAD@&#123;6&#125;: commit: erererer3a2dc37 HEAD@&#123;7&#125;: checkout: moving from order to thursdaye6ed90f HEAD@&#123;8&#125;: commit: ddddd1523a5f HEAD@&#123;9&#125;: commit (merge): Merge branch &apos;revert-9097312f&apos; into order8a0ca84 HEAD@&#123;10&#125;: checkout: moving from revert-9097312f to orderb0a1ae7 HEAD@&#123;11&#125;: checkout: moving from revert-8d0a42dc to revert-9097312f640aae1 HEAD@&#123;12&#125;: checkout: moving from order to revert-8d0a42dc8a0ca84 HEAD@&#123;13&#125;: pull origin order: Fast-forwardf7473e4 HEAD@&#123;14&#125;: checkout: moving from master to order9bf0448 HEAD@&#123;15&#125;: pull origin master: Fast-forward 1它会记录所有HEAD的历史，也就是说当你做 reset，checkout等操作的时候，这些操作会被记录在reflog中 3、利用reset命令本地进行还原1git reset --hard a1edaeb37a5 这看起来我们是丢掉了之前的提交记录，本地的修改也消失了，可以通过git reflog找回来 4、强制push 到远程仓库1git push -f http://root@10.112.1.199/lvmm_dest_project/lvmm_test.git master:master 5、help1git reset --help 6、模式(mode)1git reset --&lt;mode&gt; [&lt;commit&gt;] 123--soft 这个就是除了git commit 还原外其他的都保留，比如说git status 里面的内容和代码的修改。--mixed 这个就是 除了代码修改保留外其他的都还原， 包括git commit 和 git status 里面的内容。--hard 这个就将所有的都还原，包括代码 ，git add 后的内容以及 git commit 里面的内容。]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[分摊相关概念]]></title>
     <url>%2F2017%2F12%2F07%2Fbusiness-apportion%2F</url>
     <content type="text"><![CDATA[分摊]]></content>
@@ -43,17 +54,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2017%2F11%2F20%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-      <tags>
-        <tag>JAVA</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Spring异步任务，@Async配置和使用]]></title>
     <url>%2F2017%2F11%2F13%2Fspring-async%2F</url>
     <content type="text"><![CDATA[一、描述这个注解用于标注某个方法或某个类里面的所有方法都是需要异步处理的。被注解的方法被调用的时候，会在新线程中执行，而调用它的方法会在原来的线程中执行。这样可以避免阻塞、以及保证任务的实时性。适用于处理log、发送邮件、短信……等。 二、应用范围 类：表示这个类中的所有方法都是异步的； 方法：表示这个方法是异步的，如果类也注解了，则以这个方法的注解为准。 三、相关配置1.&lt;task:annotation-driven /&gt; executor：指定一个缺省的executor给@Async使用。 例子：&lt;task:annotation-driven executor=&quot;asyncExecutor&quot; /&gt; 2.&lt;task:executor /&gt; id：当配置多个executor时，被@Async(“id”)指定使用；也被作为线程名的前缀。 pool-size： core size：最小的线程数，缺省：1 max size：最大的线程数，缺省：Integer.MAX_VALUE queue-capacity：当最小的线程数已经被占用满后，新的任务会被放进queue里面，当这个queue的capacity也被占满之后，pool里面会创建新线程处理这个任务，直到总线程数达到了max size，这时系统会拒绝这个任务并抛出TaskRejectedException异常（缺省配置的情况下，可以通过rejection-policy来决定如何处理这种情况）。缺省值为：Integer.MAX_VALUE keep-alive：超过core size的那些线程，任务完成后，再经过这个时长（秒）会被结束掉 rejection-policy：当pool已经达到max size的时候，如何处理新任务 ABORT（缺省）：抛出TaskRejectedException异常，然后不执行 DISCARD：不执行，也不抛出异常 DISCARD_OLDEST：丢弃queue中最旧的那个任务 CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行 3.配置例子12&lt;task:annotation-driven executor=&quot;asyncExecutor&quot; /&gt;&lt;task:executor id=&quot;asyncExecutor&quot; pool-size=&quot;100-10000&quot; queue-capacity=&quot;10&quot;/&gt; 实例：123456&lt;!-- 缺省的异步任务线程池 --&gt; &lt;task:annotation-driven executor=&quot;asyncExecutor&quot; /&gt; &lt;task:executor id=&quot;asyncExecutor&quot; pool-size=&quot;100-10000&quot; queue-capacity=&quot;10&quot; /&gt; &lt;!-- 处理log的线程池 --&gt; &lt;task:executor id=&quot;logExecutor&quot; pool-size=&quot;15-1000&quot; queue-capacity=&quot;5&quot; keep-alive=&quot;5&quot;/&gt; 123456@Override @Async(&quot;logExecutor&quot;) //如果不指定名字，会使用缺省的“asyncExecutor” public void saveUserOpLog(TabUserOpLog tabUserOpLog) &#123; userOpLogDAO.insertTabUserOpLog(tabUserOpLog); &#125; 4.线程的优先级和类型： 优先级：NORM_PRIORITY 类型：非守护线程 用户线程（User Thread）：JVM会等待所有的用户线程结束后才退出；当系统中没有用户线程了，JVM也就退出了 守护线程（Daemon Thread）：一般是为其他线程提供服务的线程，比如GC垃圾回收器；JVM退出时，不会管守护线程是否存在，而是直接退出 所以，对于文件、数据库的操作，不适宜使用守护线程，不然可能会丢失数据！ 4.附1234567891011121314151617181920212223242526272829@Configuration @EnableAsync public class SpringConfig &#123; /** Set the ThreadPoolExecutor&apos;s core pool size. */ private int corePoolSize = 10; /** Set the ThreadPoolExecutor&apos;s maximum pool size. */ private int maxPoolSize = 200; /** Set the capacity for the ThreadPoolExecutor&apos;s BlockingQueue. */ private int queueCapacity = 10; private String ThreadNamePrefix = &quot;MyLogExecutor-&quot;; @Bean public Executor logExecutor() &#123; ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor(); executor.setCorePoolSize(corePoolSize); executor.setMaxPoolSize(maxPoolSize); executor.setQueueCapacity(queueCapacity); executor.setThreadNamePrefix(ThreadNamePrefix); // rejection-policy：当pool已经达到max size的时候，如何处理新任务 // CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行 executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy()); executor.initialize(); return executor; &#125; &#125;]]></content>
@@ -63,6 +63,17 @@
       <tags>
         <tag>java</tag>
         <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F11%2F08%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
       </tags>
   </entry>
 </search>
